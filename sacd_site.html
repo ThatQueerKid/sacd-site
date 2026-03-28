@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>San Andreas Dispatch Center — ScenicRP</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b3e;
+    --navy-mid: #162247;
+    --navy-light: #1e2f5a;
+    --gold: #f5c842;
+    --gold-dark: #c9a020;
+    --red: #c0392b;
+    --blue-accent: #2a6db5;
+    --white: #ffffff;
+    --off-white: #f0f2f7;
+    --text-light: #c8d0e0;
+    --border: rgba(245,200,66,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(13,27,62,0.97);
+    border-bottom: 2px solid var(--gold);
+    backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem;
+    height: 64px;
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 0.75rem;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.1rem; font-weight: 600;
+    letter-spacing: 0.08em; color: var(--gold);
+    text-decoration: none;
+  }
+  .nav-brand span { color: var(--white); }
+  .nav-links {
+    display: flex; gap: 0; list-style: none;
+  }
+  .nav-links a {
+    display: block; padding: 0.5rem 1.1rem;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.9rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-light); text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); border-color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    background: linear-gradient(160deg, #0a1428 0%, #162247 50%, #0d1b3e 100%);
+    padding: 5rem 2rem 4rem;
+    overflow: hidden;
+    text-align: center;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(245,200,66,0.03) 60px, rgba(245,200,66,0.03) 61px),
+      repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(245,200,66,0.03) 60px, rgba(245,200,66,0.03) 61px);
+  }
+  .hero-logo {
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px var(--gold), 0 0 60px rgba(245,200,66,0.3);
+    margin: 0 auto 2rem;
+    display: block;
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+  @keyframes glow-pulse {
+    0%,100% { box-shadow: 0 0 0 4px var(--gold), 0 0 40px rgba(245,200,66,0.25); }
+    50% { box-shadow: 0 0 0 4px var(--gold), 0 0 80px rgba(245,200,66,0.5); }
+  }
+  .hero-eyebrow {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem; font-weight: 600;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.5rem;
+  }
+  .hero h1 {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 700; letter-spacing: 0.04em;
+    line-height: 1.1; margin-bottom: 0.5rem;
+  }
+  .hero h1 .gold { color: var(--gold); }
+  .hero-sub {
+    font-size: 1.05rem; color: var(--text-light);
+    max-width: 600px; margin: 1rem auto 2rem;
+    line-height: 1.6;
+  }
+  .hero-divider {
+    width: 80px; height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 2.5rem;
+  }
+  .hero-stats {
+    display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-number {
+    font-family: 'Oswald', sans-serif;
+    font-size: 2rem; font-weight: 700; color: var(--gold);
+  }
+  .stat-label {
+    font-size: 0.78rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--text-light);
+    margin-top: 0.2rem;
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    padding: 5rem 2rem;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .section-header {
+    text-align: center; margin-bottom: 3.5rem;
+  }
+  .section-tag {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.8rem; font-weight: 600;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.5rem;
+  }
+  .section-header h2 {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 700; letter-spacing: 0.04em;
+  }
+  .section-header p {
+    color: var(--text-light); margin-top: 0.75rem;
+    max-width: 580px; margin-left: auto; margin-right: auto;
+    line-height: 1.65;
+  }
+  .underline-bar {
+    width: 60px; height: 3px;
+    background: var(--gold); margin: 1rem auto 0;
+  }
+
+  /* ── SEPARATOR ── */
+  .sep {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+  .alt-bg {
+    background: linear-gradient(180deg, #0f2040 0%, #0d1b3e 100%);
+  }
+
+  /* ── WELCOME CARD ── */
+  .welcome-card {
+    background: linear-gradient(135deg, var(--navy-mid), var(--navy-light));
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: 4px;
+    padding: 2.5rem 3rem;
+    line-height: 1.8;
+    color: var(--text-light);
+    font-size: 1.05rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .welcome-card::before {
+    content: '❝';
+    position: absolute; top: -10px; right: 20px;
+    font-size: 8rem; color: rgba(245,200,66,0.05);
+    font-family: serif; line-height: 1;
+  }
+
+  /* ── DIVISIONS ── */
+  .divisions-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  .division-card {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .division-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 0 1px var(--gold);
+  }
+  .division-header {
+    padding: 1.5rem 1.5rem 1rem;
+    display: flex; align-items: center; gap: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .division-logo {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px var(--gold-dark);
+    flex-shrink: 0;
+  }
+  .division-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.1rem; font-weight: 600;
+    letter-spacing: 0.04em; line-height: 1.3;
+  }
+  .division-abbr {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.78rem; letter-spacing: 0.2em;
+    color: var(--gold); text-transform: uppercase;
+    margin-top: 0.2rem;
+  }
+  .division-body { padding: 1.25rem 1.5rem 1.5rem; }
+  .division-body p {
+    color: var(--text-light); font-size: 0.95rem;
+    line-height: 1.65; margin-bottom: 1rem;
+  }
+  .rank-list { list-style: none; }
+  .rank-list li {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.35rem 0;
+    font-size: 0.9rem; color: var(--text-light);
+    border-bottom: 1px solid rgba(245,200,66,0.07);
+  }
+  .rank-list li:last-child { border-bottom: none; }
+  .rank-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%; background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* ── RANK TABLE ── */
+  .rank-table-wrapper {
+    overflow-x: auto;
+  }
+  table {
+    width: 100%; border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+  thead th {
+    background: var(--navy-light);
+    padding: 0.9rem 1.2rem;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.78rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--gold);
+    text-align: left; border-bottom: 2px solid var(--gold);
+  }
+  tbody tr { border-bottom: 1px solid rgba(255,255,255,0.05); }
+  tbody tr:hover { background: rgba(245,200,66,0.04); }
+  tbody td { padding: 0.85rem 1.2rem; color: var(--text-light); }
+  tbody td:first-child {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500; color: var(--white);
+    letter-spacing: 0.03em;
+  }
+  .tier-director { color: var(--gold) !important; }
+  .tier-mgmt { color: #80a8d8 !important; }
+  .tier-sup { color: #a8c4a2 !important; }
+  .tier-op { color: var(--text-light) !important; }
+
+  /* ── TEAM GRID ── */
+  .team-section-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+  .director-cards {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem; margin-bottom: 4rem;
+  }
+  .director-card {
+    background: linear-gradient(145deg, var(--navy-mid), var(--navy-light));
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--gold);
+    border-radius: 4px;
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .director-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+  }
+  .member-avatar {
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    background: var(--navy-light);
+    border: 3px solid var(--gold);
+    margin: 0 auto 1rem;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Oswald', sans-serif;
+    font-size: 2rem; color: var(--gold);
+    overflow: hidden;
+  }
+  .member-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .member-name {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.2rem; font-weight: 600; letter-spacing: 0.04em;
+    margin-bottom: 0.25rem;
+  }
+  .member-rank {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.8rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .member-bio {
+    font-size: 0.9rem; color: var(--text-light);
+    line-height: 1.65;
+  }
+  .member-message {
+    margin-top: 1.25rem;
+    padding: 1rem;
+    background: rgba(0,0,0,0.2);
+    border-left: 3px solid var(--gold);
+    border-radius: 2px;
+    font-size: 0.88rem;
+    color: var(--text-light);
+    font-style: italic;
+    line-height: 1.6;
+    text-align: left;
+  }
+  .staff-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.25rem;
+  }
+  .staff-card {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.25rem;
+    text-align: center;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .staff-card:hover { transform: translateY(-2px); border-color: rgba(245,200,66,0.5); }
+  .staff-avatar {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: var(--navy-light);
+    border: 2px solid rgba(245,200,66,0.4);
+    margin: 0 auto 0.75rem;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.3rem; color: var(--gold);
+    overflow: hidden;
+  }
+  .staff-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .staff-name {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem; font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+  .staff-rank {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.75rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .staff-bio {
+    font-size: 0.82rem; color: var(--text-light);
+    line-height: 1.5;
+  }
+  .rank-group-label {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.78rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--gold);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── TRAINING ── */
+  .training-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .training-card {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.75rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .training-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+  .training-icon {
+    font-size: 2rem; margin-bottom: 0.75rem;
+  }
+  .training-card h3 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.1rem; font-weight: 600;
+    letter-spacing: 0.04em; margin-bottom: 0.5rem;
+  }
+  .training-card p {
+    font-size: 0.92rem; color: var(--text-light);
+    line-height: 1.65;
+  }
+  .badge {
+    display: inline-block;
+    margin-top: 0.75rem;
+    padding: 0.2rem 0.65rem;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.72rem; letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border-radius: 2px;
+  }
+  .badge-gold { background: rgba(245,200,66,0.15); color: var(--gold); border: 1px solid rgba(245,200,66,0.3); }
+  .badge-blue { background: rgba(42,109,181,0.2); color: #80b4e8; border: 1px solid rgba(42,109,181,0.4); }
+  .badge-red  { background: rgba(192,57,43,0.2);  color: #e8a89e; border: 1px solid rgba(192,57,43,0.4); }
+
+  /* ── CONTACT ── */
+  .contact-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .contact-card {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2rem;
+    text-align: center;
+  }
+  .contact-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .contact-card h3 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.1rem; letter-spacing: 0.04em;
+    margin-bottom: 0.5rem;
+  }
+  .contact-card p {
+    font-size: 0.9rem; color: var(--text-light);
+    line-height: 1.65; margin-bottom: 1.25rem;
+  }
+  .btn {
+    display: inline-block;
+    padding: 0.6rem 1.5rem;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-gold {
+    background: var(--gold); color: var(--navy);
+  }
+  .btn-gold:hover { background: var(--gold-dark); }
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--gold); color: var(--gold);
+  }
+  .btn-outline:hover { background: rgba(245,200,66,0.1); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #080f22;
+    border-top: 2px solid var(--gold);
+    padding: 2.5rem 2rem;
+    text-align: center;
+  }
+  footer p {
+    font-size: 0.82rem; color: rgba(200,208,224,0.5);
+    letter-spacing: 0.05em;
+  }
+  footer strong { color: var(--gold); }
+
+  /* ── TABS ── */
+  .tab-bar {
+    display: flex; gap: 0.5rem; margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    padding: 0.6rem 1.2rem;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    background: none; border: none; cursor: pointer;
+    color: var(--text-light);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* page sections shown/hidden */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* responsive */
+  @media (max-width: 640px) {
+    nav { padding: 0 1rem; }
+    .nav-links { display: none; }
+    .hero { padding: 3rem 1.5rem; }
+    .hero-stats { gap: 1.5rem; }
+    .section { padding: 3rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#" onclick="showPage('home')">
+    <span>SACD</span> · <span style="color:var(--text-light);font-weight:400">ScenicRP</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('home')">Home</a></li>
+    <li><a href="#" onclick="showPage('divisions')">Divisions</a></li>
+    <li><a href="#" onclick="showPage('team')">Our Team</a></li>
+    <li><a href="#" onclick="showPage('training')">Training & SOPs</a></li>
+    <li><a href="#" onclick="showPage('contact')">Contact & Apply</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════ HOME ═══════════════════════════ -->
+<div class="page active" id="page-home">
+  <!-- Hero -->
+  <div class="hero">
+    <img class="hero-logo" src="/mnt/user-data/uploads/SRP_Comms_Final.png" alt="SACD Logo">
+    <div class="hero-eyebrow">ScenicRP · Official Department Site</div>
+    <h1>San Andreas<br><span class="gold">Dispatch Center</span></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">
+      The communications backbone of San Andreas. Serving every agency, every call, every time.
+      Professional. Reliable. Committed.
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-number">3</div>
+        <div class="stat-label">Divisions</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">911</div>
+        <div class="stat-label">Always On</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">11</div>
+        <div class="stat-label">Rank Tiers</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Welcome -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-tag">Welcome Message</div>
+      <h2>From the Director's Desk</h2>
+      <div class="underline-bar"></div>
+    </div>
+    <div class="welcome-card">
+      <p>
+        Welcome to the official web presence of the <strong style="color:var(--white)">San Andreas Communications Department (SACD)</strong>
+        — the central dispatch hub of ScenicRP. Our operators work tirelessly behind the scenes to ensure every unit in the field
+        receives timely, accurate, and professional support, from routine patrol check-ins to the most demanding multi-agency
+        critical incidents.
+      </p>
+      <br>
+      <p>
+        The SACD is more than a call center — it is the thread that holds every agency together. Whether you are a curious
+        civilian, a prospective applicant, or an active department member looking for resources, this site is your gateway
+        to everything SACD. Explore our divisions, meet our team, review our training standards, and find out how to join us.
+      </p>
+      <br>
+      <p style="color:var(--gold);font-family:'Oswald',sans-serif;letter-spacing:0.04em;">
+        — SACD Director
+      </p>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- Quick links -->
+  <div class="section" style="text-align:center;">
+    <div class="section-header">
+      <div class="section-tag">Navigate</div>
+      <h2>Explore the Department</h2>
+      <div class="underline-bar"></div>
+    </div>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:1rem;">
+      <a class="btn btn-gold" href="#" onclick="showPage('divisions')">Our Divisions</a>
+      <a class="btn btn-outline" href="#" onclick="showPage('team')">Meet the Team</a>
+      <a class="btn btn-outline" href="#" onclick="showPage('training')">Training & SOPs</a>
+      <a class="btn btn-outline" href="#" onclick="showPage('contact')">Apply Now</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ DIVISIONS ═══════════════════════════ -->
+<div class="page" id="page-divisions">
+  <div class="hero" style="padding:3rem 2rem 2.5rem;">
+    <div class="hero-eyebrow">SACD Structure</div>
+    <h1>Our <span class="gold">Divisions</span></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">Three specialized divisions work in concert to uphold the highest standards of communications excellence.</p>
+  </div>
+
+  <div class="section">
+    <div class="divisions-grid">
+
+      <!-- PIO -->
+      <div class="division-card">
+        <div class="division-header">
+          <img class="division-logo" src="/mnt/user-data/uploads/SRP_Comms_Final.png" alt="PIO Logo">
+          <div>
+            <div class="division-title">Public Information Office</div>
+            <div class="division-abbr">SACD · PIO</div>
+          </div>
+        </div>
+        <div class="division-body">
+          <p>
+            The Public Information Office is the voice of the SACD. Responsible for external communications,
+            community outreach, and maintaining a transparent and professional public image for the department.
+            PIO members serve as the bridge between dispatch operations and the wider ScenicRP community.
+          </p>
+          <ul class="rank-list">
+            <li><span class="rank-dot"></span>Head of Outreach & Relations</li>
+            <li><span class="rank-dot"></span>Outreach & Relations Coordinator</li>
+            <li><span class="rank-dot"></span>PIO Representative (×4)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- FTO -->
+      <div class="division-card">
+        <div class="division-header">
+          <img class="division-logo" src="/mnt/user-data/uploads/SRP_Comms_FTO_Final.png" alt="FTO Logo">
+          <div>
+            <div class="division-title">Field Training Office</div>
+            <div class="division-abbr">SACD · FTO</div>
+          </div>
+        </div>
+        <div class="division-body">
+          <p>
+            The Field Training Office is the backbone of SACD's workforce development. FTO personnel
+            evaluate, mentor, and certify all incoming dispatchers, ensuring every operator meets the
+            department's rigorous standards before going live on the console.
+          </p>
+          <ul class="rank-list">
+            <li><span class="rank-dot"></span>FTO Director</li>
+            <li><span class="rank-dot"></span>FTO Assistant Director</li>
+            <li><span class="rank-dot"></span>FTO Manager</li>
+            <li><span class="rank-dot"></span>FTO Supervisor</li>
+            <li><span class="rank-dot"></span>FTO Lead</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- IA -->
+      <div class="division-card">
+        <div class="division-header">
+          <img class="division-logo" src="/mnt/user-data/uploads/SRP_Comms_IA_Final.png" alt="IA Logo">
+          <div>
+            <div class="division-title">Internal Affairs Division</div>
+            <div class="division-abbr">SACD · IA</div>
+          </div>
+        </div>
+        <div class="division-body">
+          <p>
+            The Internal Affairs Division ensures accountability and integrity within the SACD.
+            IA investigators handle complaints, conduct internal reviews, and uphold the ethical
+            standards that define the department. All submissions are handled with strict confidentiality.
+          </p>
+          <ul class="rank-list">
+            <li><span class="rank-dot"></span>Executive Director</li>
+            <li><span class="rank-dot"></span>Operations Director</li>
+            <li><span class="rank-dot"></span>Deputy Director</li>
+            <li><span class="rank-dot"></span>Supervisor</li>
+            <li><span class="rank-dot"></span>Advisor</li>
+          </ul>
+          <div style="margin-top:1.25rem;">
+            <a class="btn btn-outline" href="#" onclick="showPage('contact')" style="font-size:0.78rem;">File an IA Complaint</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Rank Structure Table -->
+    <div class="section-header" style="margin-top:4rem;">
+      <div class="section-tag">Department Structure</div>
+      <h2>SACD Rank Hierarchy</h2>
+      <div class="underline-bar"></div>
+    </div>
+    <div class="rank-table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Tier</th>
+            <th>Slots</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="tier-director">Director</td><td>1</td><td>1</td><td>Command</td></tr>
+          <tr><td class="tier-director">Deputy Director</td><td>2</td><td>1</td><td>Command</td></tr>
+          <tr><td class="tier-director">Assistant Director</td><td>3</td><td>1</td><td>Command</td></tr>
+          <tr><td class="tier-mgmt">Manager</td><td>4</td><td>2</td><td>Management</td></tr>
+          <tr><td class="tier-mgmt">Assistant Manager</td><td>5</td><td>2</td><td>Management</td></tr>
+          <tr><td class="tier-sup">Supervisor</td><td>6</td><td>4</td><td>Supervision</td></tr>
+          <tr><td class="tier-sup">Assistant Supervisor</td><td>7</td><td>4</td><td>Supervision</td></tr>
+          <tr><td class="tier-op">Lead Operator</td><td>8</td><td>4</td><td>Operations</td></tr>
+          <tr><td class="tier-op">Senior Operator II</td><td>9</td><td>3</td><td>Operations</td></tr>
+          <tr><td class="tier-op">Senior Operator I</td><td>10</td><td>3</td><td>Operations</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ TEAM ═══════════════════════════ -->
+<div class="page" id="page-team">
+  <div class="hero" style="padding:3rem 2rem 2.5rem;">
+    <div class="hero-eyebrow">Personnel</div>
+    <h1>Meet <span class="gold">Our Team</span></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">The people behind every transmission. Dedicated professionals serving San Andreas around the clock.</p>
+  </div>
+
+  <div class="team-section-inner" style="padding-top:3rem;padding-bottom:4rem;">
+
+    <!-- Director Tier -->
+    <div class="section-header" style="margin-bottom:2rem;">
+      <div class="section-tag">Command Staff</div>
+      <h2>Department Leadership</h2>
+      <div class="underline-bar"></div>
+      <p>Our three director-level command staff lead the SACD with vision, accountability, and operational excellence.</p>
+    </div>
+
+    <div class="director-cards">
+      <!-- Director -->
+      <div class="director-card">
+        <div class="member-avatar">D</div>
+        <div class="member-name">[Director Name]</div>
+        <div class="member-rank">Director</div>
+        <div class="member-bio">
+          [Short bio — e.g. years of service, background, areas of expertise. Update with real member info.]
+        </div>
+        <div class="member-message">
+          "A message from the Director to the department and community. This section is reserved for a personal note, vision statement, or words of encouragement from our Director."
+        </div>
+      </div>
+      <!-- Deputy Director -->
+      <div class="director-card">
+        <div class="member-avatar">DD</div>
+        <div class="member-name">[Deputy Director Name]</div>
+        <div class="member-rank">Deputy Director</div>
+        <div class="member-bio">
+          [Short bio — e.g. years of service, background, areas of expertise. Update with real member info.]
+        </div>
+        <div class="member-message">
+          "A message from the Deputy Director. This section is reserved for a personal note or operational message from the Deputy Director."
+        </div>
+      </div>
+      <!-- Assistant Director -->
+      <div class="director-card">
+        <div class="member-avatar">AD</div>
+        <div class="member-name">[Assistant Director Name]</div>
+        <div class="member-rank">Assistant Director</div>
+        <div class="member-bio">
+          [Short bio — e.g. years of service, background, areas of expertise. Update with real member info.]
+        </div>
+        <div class="member-message">
+          "A message from the Assistant Director. This section is reserved for a personal note or departmental message from the Assistant Director."
+        </div>
+      </div>
+    </div>
+
+    <!-- Management -->
+    <div class="rank-group-label">Management Staff</div>
+    <div class="staff-grid">
+      <div class="staff-card">
+        <div class="staff-avatar">M</div>
+        <div class="staff-name">[Manager Name]</div>
+        <div class="staff-rank">Manager</div>
+        <div class="staff-bio">Brief bio or description. Update with real member info.</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-avatar">M</div>
+        <div class="staff-name">[Manager Name]</div>
+        <div class="staff-rank">Manager</div>
+        <div class="staff-bio">Brief bio or description. Update with real member info.</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-avatar">AM</div>
+        <div class="staff-name">[Asst. Manager Name]</div>
+        <div class="staff-rank">Assistant Manager</div>
+        <div class="staff-bio">Brief bio or description. Update with real member info.</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-avatar">AM</div>
+        <div class="staff-name">[Asst. Manager Name]</div>
+        <div class="staff-rank">Assistant Manager</div>
+        <div class="staff-bio">Brief bio or description. Update with real member info.</div>
+      </div>
+    </div>
+
+    <!-- Supervisors -->
+    <div class="rank-group-label">Supervisory Staff</div>
+    <div class="staff-grid">
+      <div class="staff-card">
+        <div class="staff-avatar">S</div>
+        <div class="staff-name">[Supervisor Name]</div>
+        <div class="staff-rank">Supervisor</div>
+        <div class="staff-bio">Brief bio. Update with real member info.</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-avatar">S</div>
+        <div class="staff-name">[Supervisor Name]</div>
+        <div class="staff-rank">Supervisor</div>
+        <div class="staff-bio">Brief bio. Update with real member info.</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-avatar">S</div>
+        <div class="staff-name">[Supervisor Name]</div>
+        <div class="staff-rank">Supervisor</div>
+        <div class="staff-bio">Brief bio. Update with real member info.</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-avatar">S</div>
+        <div class="staff-name">[Supervisor Name]</div>
+        <div class="staff-rank">Supervisor</div>
+        <div class="staff-bio">Brief bio. Update with real member info.</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-avatar">AS</div>
+        <div class="staff-name">[Asst. Supervisor]</div>
+        <div class="staff-rank">Assistant Supervisor</div>
+        <div class="staff-bio">Brief bio. Update with real member info.</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-avatar">AS</div>
+        <div class="staff-name">[Asst. Supervisor]</div>
+        <div class="staff-rank">Assistant Supervisor</div>
+        <div class="staff-bio">Brief bio. Update with real member info.</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-avatar">AS</div>
+        <div class="staff-name">[Asst. Supervisor]</div>
+        <div class="staff-rank">Assistant Supervisor</div>
+        <div class="staff-bio">Brief bio. Update with real member info.</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-avatar">AS</div>
+        <div class="staff-name">[Asst. Supervisor]</div>
+        <div class="staff-rank">Assistant Supervisor</div>
+        <div class="staff-bio">Brief bio. Update with real member info.</div>
+      </div>
+    </div>
+
+    <!-- Operators -->
+    <div class="rank-group-label">Operations Staff</div>
+    <div class="staff-grid">
+      <div class="staff-card">
+        <div class="staff-avatar">LO</div>
+        <div class="staff-name">[Lead Operator]</div>
+        <div class="staff-rank">Lead Operator</div>
+        <div class="staff-bio">Brief bio. Update with real member info.</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-avatar">LO</div>
+        <div class="staff-name">[Lead Operator]</div>
+        <div class="staff-rank">Lead Operator</div>
+        <div class="staff-bio">Brief bio. Update with real member info.</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-avatar">LO</div>
+        <div class="staff-name">[Lead Operator]</div>
+        <div class="staff-rank">Lead Operator</div>
+        <div class="staff-bio">Brief bio. Update with real member info.</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-avatar">LO</div>
+        <div class="staff-name">[Lead Operator]</div>
+        <div class="staff-rank">Lead Operator</div>
+        <div class="staff-bio">Brief bio. Update with real member info.</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-avatar">S2</div>
+        <div class="staff-name">[Sr. Operator II]</div>
+        <div class="staff-rank">Senior Operator II</div>
+        <div class="staff-bio">Brief bio. Update with real member info.</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-avatar">S2</div>
+        <div class="staff-name">[Sr. Operator II]</div>
+        <div class="staff-rank">Senior Operator II</div>
+        <div class="staff-bio">Brief bio. Update with real member info.</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-avatar">S2</div>
+        <div class="staff-name">[Sr. Operator II]</div>
+        <div class="staff-rank">Senior Operator II</div>
+        <div class="staff-bio">Brief bio. Update with real member info.</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-avatar">S1</div>
+        <div class="staff-name">[Sr. Operator I]</div>
+        <div class="staff-rank">Senior Operator I</div>
+        <div class="staff-bio">Brief bio. Update with real member info.</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-avatar">S1</div>
+        <div class="staff-name">[Sr. Operator I]</div>
+        <div class="staff-rank">Senior Operator I</div>
+        <div class="staff-bio">Brief bio. Update with real member info.</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-avatar">S1</div>
+        <div class="staff-name">[Sr. Operator I]</div>
+        <div class="staff-rank">Senior Operator I</div>
+        <div class="staff-bio">Brief bio. Update with real member info.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════ TRAINING ═══════════════════════════ -->
+<div class="page" id="page-training">
+  <div class="hero" style="padding:3rem 2rem 2.5rem;">
+    <div class="hero-eyebrow">SACD · FTO Division</div>
+    <h1>Training <span class="gold">&amp; SOPs</span></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">Everything a SACD dispatcher needs to perform professionally, from day one on the console to senior leadership.</p>
+  </div>
+
+  <div class="section">
+    <!-- Tab bar -->
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab(this,'tab-general')">General SOPs</button>
+      <button class="tab-btn" onclick="switchTab(this,'tab-fto')">FTO Programme</button>
+      <button class="tab-btn" onclick="switchTab(this,'tab-ia')">IA Guidelines</button>
+      <button class="tab-btn" onclick="switchTab(this,'tab-pio')">PIO Standards</button>
+    </div>
+
+    <!-- General SOPs -->
+    <div class="tab-panel active" id="tab-general">
+      <div class="training-grid">
+        <div class="training-card">
+          <div class="training-icon">📡</div>
+          <h3>Radio Communications Protocol</h3>
+          <p>Standard operating procedures for all radio transmissions, including phonetic alphabet usage, signal codes, priority traffic, and inter-agency communication standards.</p>
+          <span class="badge badge-gold">All Ranks</span>
+        </div>
+        <div class="training-card">
+          <div class="training-icon">🚨</div>
+          <h3>Priority & Emergency Calls</h3>
+          <p>Procedures for handling Priority 1 and Priority 2 calls, mass casualty events, officer-down situations, and inter-agency emergency coordination.</p>
+          <span class="badge badge-red">Priority Required</span>
+        </div>
+        <div class="training-card">
+          <div class="training-icon">📋</div>
+          <h3>CAD & Logging Standards</h3>
+          <p>Guidelines for accurate Computer-Aided Dispatch entry, call logging, unit tracking, and incident documentation to ensure a clean and reliable record trail.</p>
+          <span class="badge badge-gold">All Ranks</span>
+        </div>
+        <div class="training-card">
+          <div class="training-icon">🤝</div>
+          <h3>Inter-Agency Coordination</h3>
+          <p>Protocols for liaising between LSPD, SASP, BCSO, LSFD/EMS, and other agencies during multi-unit or cross-jurisdictional incidents.</p>
+          <span class="badge badge-blue">Lead Operator+</span>
+        </div>
+        <div class="training-card">
+          <div class="training-icon">⚖️</div>
+          <h3>Code of Conduct</h3>
+          <p>The behavioural and professional standards expected of every SACD member, both on and off the console. Violations are subject to IA review.</p>
+          <span class="badge badge-gold">All Ranks</span>
+        </div>
+        <div class="training-card">
+          <div class="training-icon">🔒</div>
+          <h3>Information Security & Confidentiality</h3>
+          <p>Rules governing the handling of sensitive dispatch data, personal information, and inter-agency intelligence. All dispatchers are bound by strict confidentiality obligations.</p>
+          <span class="badge badge-red">Strictly Enforced</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FTO -->
+    <div class="tab-panel" id="tab-fto">
+      <div class="training-grid">
+        <div class="training-card">
+          <div class="training-icon">🎓</div>
+          <h3>Trainee Onboarding Process</h3>
+          <p>Step-by-step walkthrough of the new operator onboarding pipeline — from application approval through shadowing, evaluation phases, and final certification sign-off.</p>
+          <span class="badge badge-blue">FTO Staff</span>
+        </div>
+        <div class="training-card">
+          <div class="training-icon">📊</div>
+          <h3>Evaluation Criteria & Rubric</h3>
+          <p>The standardised scoring matrix used by FTO staff during ride-along evaluations. Covers radio proficiency, situational awareness, composure, and accuracy.</p>
+          <span class="badge badge-blue">FTO Staff</span>
+        </div>
+        <div class="training-card">
+          <div class="training-icon">🗂️</div>
+          <h3>FTO Reporting Requirements</h3>
+          <p>Guidelines on completing end-of-session trainee reports, submitting evaluations to FTO leadership, and flagging performance concerns for review.</p>
+          <span class="badge badge-blue">FTO Lead+</span>
+        </div>
+        <div class="training-card">
+          <div class="training-icon">✅</div>
+          <h3>Certification Standards</h3>
+          <p>The minimum competency benchmarks a trainee must achieve before receiving full operator certification. Includes remediation pathways for trainees requiring additional support.</p>
+          <span class="badge badge-blue">FTO Manager+</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- IA -->
+    <div class="tab-panel" id="tab-ia">
+      <div class="training-grid">
+        <div class="training-card">
+          <div class="training-icon">🔍</div>
+          <h3>Complaint Intake Procedure</h3>
+          <p>The formal process for receiving, logging, and assigning internal complaints. All submissions are date-stamped, anonymised where appropriate, and handled exclusively by IA personnel.</p>
+          <span class="badge badge-red">IA Staff</span>
+        </div>
+        <div class="training-card">
+          <div class="training-icon">📁</div>
+          <h3>Investigation Protocol</h3>
+          <p>Step-by-step guide to conducting a fair and thorough IA investigation — including evidence gathering, witness interviews, and timeline documentation.</p>
+          <span class="badge badge-red">IA Supervisor+</span>
+        </div>
+        <div class="training-card">
+          <div class="training-icon">⚖️</div>
+          <h3>Disciplinary Guidelines</h3>
+          <p>The graduated scale of disciplinary actions available to IA, from verbal warnings and written reprimands through to suspension or dismissal recommendations.</p>
+          <span class="badge badge-red">IA Director</span>
+        </div>
+        <div class="training-card">
+          <div class="training-icon">🔐</div>
+          <h3>Confidentiality & Impartiality Standards</h3>
+          <p>All IA proceedings are strictly confidential. IA members must recuse themselves from any case involving a personal or professional conflict of interest.</p>
+          <span class="badge badge-red">All IA Ranks</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PIO -->
+    <div class="tab-panel" id="tab-pio">
+      <div class="training-grid">
+        <div class="training-card">
+          <div class="training-icon">📣</div>
+          <h3>Public Statement Guidelines</h3>
+          <p>Approved language, messaging tone, and release procedures for all public-facing SACD communications, including announcements, statements, and social posts.</p>
+          <span class="badge badge-gold">PIO Staff</span>
+        </div>
+        <div class="training-card">
+          <div class="training-icon">🤳</div>
+          <h3>Community Outreach Standards</h3>
+          <p>How PIO representatives engage with the ScenicRP community — covering conduct expectations, approved channels, and escalation procedures for sensitive matters.</p>
+          <span class="badge badge-gold">PIO Representative</span>
+        </div>
+        <div class="training-card">
+          <div class="training-icon">📰</div>
+          <h3>Media & Press Relations</h3>
+          <p>Procedures for handling media enquiries, coordinating official interviews, and responding to public incidents that require a departmental statement.</p>
+          <span class="badge badge-gold">Head of Outreach+</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ CONTACT ═══════════════════════════ -->
+<div class="page" id="page-contact">
+  <div class="hero" style="padding:3rem 2rem 2.5rem;">
+    <div class="hero-eyebrow">Get Involved</div>
+    <h1>Contact <span class="gold">&amp; Apply</span></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">Ready to join the team, raise a concern, or get in touch with the department? You're in the right place.</p>
+  </div>
+
+  <div class="section">
+    <div class="contact-grid">
+
+      <div class="contact-card">
+        <div class="contact-icon">📝</div>
+        <h3>Join the SACD</h3>
+        <p>Interested in becoming a dispatcher? Review the application requirements and submit your application through our official form.</p>
+        <a class="btn btn-gold" href="#" target="_blank">Apply Now</a>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-icon">🎓</div>
+        <h3>FTO Enquiries</h3>
+        <p>Questions about the training process, your trainee status, or FTO programme requirements? Contact the Field Training Office directly.</p>
+        <a class="btn btn-outline" href="#" target="_blank">Contact FTO</a>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-icon">📣</div>
+        <h3>Public Information</h3>
+        <p>Media enquiries, community questions, or outreach requests should be directed to the SACD Public Information Office.</p>
+        <a class="btn btn-outline" href="#" target="_blank">Contact PIO</a>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-icon">🔍</div>
+        <h3>File an IA Complaint</h3>
+        <p>All complaints are handled confidentially by the Internal Affairs Division. Use the official SACD IA Complaint Form to submit your report.</p>
+        <img src="/mnt/user-data/uploads/banner_ia_complaint_form_GOOGLEFORMS.png" alt="IA Complaint Form Banner" style="width:100%;border-radius:3px;margin:0.75rem 0;display:block;">
+        <a class="btn btn-outline" href="#" target="_blank" style="border-color:var(--red);color:#e8a89e;">Submit Complaint</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>San Andreas Dispatch Center</strong> — ScenicRP Official Department Site</p>
+  <p style="margin-top:0.4rem;">SACD · PIO · FTO · IA &nbsp;|&nbsp; All content is for ScenicRP use only.</p>
+</footer>
+
+<script>
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function switchTab(btn, tabId) {
+    btn.closest('.section, div').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const panel = btn.closest('.section, div');
+    panel.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+  }
+</script>
+
+</body>
+</html>
